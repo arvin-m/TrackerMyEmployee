@@ -1,16 +1,9 @@
 const inquirer = require('inquirer');
+const db=require("./db/connection");
 
 const cTable = require('console.table');
 
-// console.table([
-//     {
-//       name: 'foo',
-//       age: 10
-//     }, {
-//       name: 'bar',
-//       age: 20
-//     }
-//   ]);
+
 start();
 function start(){
     
@@ -140,7 +133,8 @@ function viewDepartments(){
 };
 
 function viewRoles(){
-    console.log("view roles");
+    // console.log("view roles");
+    db.viewRoles();
     start();
 
     // show all the rols
@@ -150,7 +144,10 @@ function viewRoles(){
 
 };
 function viewEmployees(){
-    console.log("view employee");
+    // console.log("view employee");
+    
+    db.viewEmployees();
+    
     start();
 // show all employee
 

@@ -13,12 +13,14 @@ INSERT INTO role(title,salary,department_id)
 		("Marketing",95000,4),
 		("Accounting",80000,5);
         
-        INSERT INTO employee(first_name,last_name,role_id,manager_id)
-        VALUES ("Fred","Smith",null),
-				("John","Doe",2,3),
-				("paula","Jonson",3,1),
-				("Will","Jackson",4,1),
-				("Sara","Watson",5,4),
-				("Tom","Smith",2,3),
-                ("Mike","Palmer",4,1)
+INSERT INTO employee(first_name,last_name,role_id,manager_id)
+VALUES ("Fred","Smith",null),
+		("John","Doe",2,3),
+		("paula","Jonson",3,1),
+		("Will","Jackson",4,1),
+		("Sara","Watson",5,4),
+		("Tom","Smith",2,3),
+		("Mike","Palmer",4,1)
+ 
+
  
