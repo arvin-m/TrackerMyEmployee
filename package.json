@@ -11,17 +11,20 @@
     "type": "git",
     "url": "git+https://github.com/arvin-m/TrackerMyEmployee.git"
   },
-  "author": "",
+  "author": "Arvin Mahmoudi",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/arvin-m/TrackerMyEmployee/issues"
   },
   "homepage": "https://github.com/arvin-m/TrackerMyEmployee#readme",
   "dependencies": {
-    "cfonts": "^2.7.0",
+    "ansi-colors": "^4.1.1",
+    "ansi-styles": "^4.2.1",
+    "cfonts": "^2.8.0",
     "console-table-printer": "^1.1.61",
     "console.table": "^0.10.0",
     "inquirer": "^7.0.4",
     "mysql": "^2.18.1"
-  }
+  },
+  "devDependencies": {}
 }

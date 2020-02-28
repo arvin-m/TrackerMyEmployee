@@ -1,10 +1,10 @@
 const inquirer = require('inquirer');
 const db=require("./db/connection");
 
-const cTable = require('console.table');
-
-
+// const cTable = require('console.table');
 start();
+
+
 function start(){
     
 
@@ -59,9 +59,9 @@ function start(){
             ]
         }
     ]).then(answer=>{
-// console.log(answer);
+console.log("---------->>>",answer);
 switch(answer.questions){
-    case "add_departments":addDepartment();
+    case "add_departments":addDepartments();
     break;
 
     case "add_roles":addRols();
@@ -97,95 +97,118 @@ switch(answer.questions){
     };
    
 
-function addDepartment(){
-    console.log("add department");
-    start();
+function addDepartments(){
+    
+    inquirer
+    .prompt([{
+      name:"name",
+      type:"string",
+      message:"Witch department would you like to add ?"
+      
+    }]).then(newDepartment=>{
+      
+      let department = newDepartment.name;
+      db.addDepartment(department);
+    })
+    // start();
 
-// promt to the user all departments
 
 };
 
 
 function addRols(){
-    console.log("add rols");
-    start();
-    // promt to the user all the rols
+  console.log(" Print The Department Table To See the Department ID :")
+  viewDepartments();
+
     
+    inquirer
+    .prompt([{
+      name:"title",
+      type:"string",
+      message:"Witch role would you like to add ?"
+      
+    },
+    {
+      name:"salary",
+      type:"number",
+      message:"INsert the salary ?"
+      
+    },
+    {
+      name:"departmentID",
+      type:"number",
+      message:"insert the department ID ?"
+      
+    }]).then(newRole=>{
+      
+      let role = newRole.title;
+      let salary =newRole.salary;
+      let depId=newRole.departmentID;
+      if(role != ""|| salary=== Number){
 
+        db.addRole(role,salary,depId);
+      }
 
-};
+      })
+    }
+        
+
+  
 
 function addEmployees(){
     console.log("add employee");
-    start();
+    // start();
 
 
 
 };
 
 function viewDepartments(){
-    console.log("view department");
-    start();
-
-    // show all the departments
-
-
+   
+    db.viewDepartments();
+    start();   
 };
 
 function viewRoles(){
-    // console.log("view roles");
+  
     db.viewRoles();
     start();
 
-    // show all the rols
-
-
-
-
 };
 function viewEmployees(){
-    // console.log("view employee");
-    
-    db.viewEmployees();
-    
+     
+    db.viewEmployees();    
     start();
-// show all employee
-
 
 };
 function updateDepartments(){
     console.log(" update department");
     start();
 
-
 };
 function updateRoles(){
     console.log("update roles");
     start();
-
-
-
 };
 function updateEmployees(){
     console.log("update employee");
     start();
-
-
-
 };
 
 function quit(){
-    console.log("See You Later  ....");
-    
+    console.log("See You Later  ....");  
 
     process.exit();
-
-}
-
+};
 
 
 
 
+
+
+
+
+    
 
 
 
