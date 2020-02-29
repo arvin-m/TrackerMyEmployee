@@ -55,7 +55,7 @@ const data ={
     let query = "SELECT * FROM department ";
     connection.query(query, (err, res) => {
       console.log("\n");
-      printTable(res);
+       printTable(res) ;
 
     })
   },
@@ -65,8 +65,8 @@ const data ={
     
     connection.query(query,(err,res)=>{
       console.log("\n");
-      // console.log(c.green("New Department Created Successfully !"));
-      console.log("New Department Created Successfully !");
+      console.log(c.green("New Department Created Successfully !"));
+      // console.log("New Department Created Successfully !");
 
      // printTable(res);
       
@@ -79,12 +79,27 @@ const data ={
     console.log("inside the connection---> ",role,salary,depId);
     
     let query= `INSERT INTO role(title,salary,department_id) VALUES ("${role}","${salary}","${depId}")`;
-    connection.query(query,(err,res)=>{
-      console.log("\n");
-      // console.log(c.green("New Department Created Successfully !"));
-      console.log("New Role Created Successfully !");
+      connection.query(query,(err,res)=>{
+      console.log("\n");      
+      console.log(c.green("New Role Created Successfully !"));
 
   })
+
+  },
+  addEmployees(firstName,lastName,roleID,managerID){
+    let query= `INSERT INTO employee(first_name,last_name,role_id,manager_id) VALUES ("${firstName}","${lastName}","${roleID}","${managerID}")`;
+      connection.query(query,(err,res)=>{
+      console.log("\n");      
+      console.log(c.green("New Employee Created Successfully !"));
+
+  })
+
+
+
+
+
+
+
 
   }
     

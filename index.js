@@ -1,7 +1,11 @@
 const inquirer = require('inquirer');
 const db=require("./db/connection");
+const c = require('ansi-colors');
 
 // const cTable = require('console.table');
+
+
+
 start();
 
 
@@ -59,7 +63,7 @@ function start(){
             ]
         }
     ]).then(answer=>{
-console.log("---------->>>",answer);
+// console.log("---------->>>",answer);
 switch(answer.questions){
     case "add_departments":addDepartments();
     break;
@@ -109,16 +113,19 @@ function addDepartments(){
       
       let department = newDepartment.name;
       db.addDepartment(department);
-    })
-    // start();
+    }).then(err =>{
+      if (err) throw err;
+      start();
+    }) 
+    
 
 
 };
 
 
 function addRols(){
-  console.log(" Print The Department Table To See the Department ID :")
   viewDepartments();
+  console.log(c.yellow(" Print The Department Table To See the Department ID :"));
 
     
     inquirer
@@ -139,27 +146,66 @@ function addRols(){
       type:"number",
       message:"insert the department ID ?"
       
-    }]).then(newRole=>{
-      
-      let role = newRole.title;
-      let salary =newRole.salary;
-      let depId=newRole.departmentID;
-      if(role != ""|| salary=== Number){
+    }]).then(newRole=>{      
+      const role = newRole.title;
+      const salary =newRole.salary;
+      const depId=newRole.departmentID;
 
-        db.addRole(role,salary,depId);
-      }
+      // if(role != "" & salary === Number){
+          db.addRole(role,salary,depId);
+      // }
 
       })
+      // .then(err =>{
+      //   if (err) throw err;
+      //   start();
+      // }) 
     }
         
 
   
 
 function addEmployees(){
-    console.log("add employee");
-    // start();
-
-
+  db.viewEmployees();
+  console.log(c.yellow(" Print The employee and department Table To See the Department ID and Manager ID:"));
+  db.viewDepartments();
+  
+  inquirer
+    .prompt([{
+      name:"firstName",
+      type:"string",
+      message:"Insert the first name ?"
+      
+    },
+    {
+      name:"lastName",
+      type:"string",
+      message:"INsert the last name ?"
+      
+    },
+    {
+      name:"roleID",
+      type:"number",
+      message:"insert the role ID ?"
+      
+    },
+    {
+      name:"managerID",
+      type:"number",
+      message:"insert the maneger ID ?"
+      
+    }
+  ]).then(newEmployee=>{
+    
+    const firstName=newEmployee.firstName;
+    const lastName=newEmployee.lastName;
+    const roleID=newEmployee.roleID;
+    const managerID=newEmployee.managerID;
+    db.addEmployees(firstName,lastName,roleID,managerID);
+  }).then(err =>{
+    if (err) throw err;
+    start();
+  })    
 
 };
 
@@ -196,9 +242,12 @@ function updateEmployees(){
 };
 
 function quit(){
-    console.log("See You Later  ....");  
-
+    console.log(c.yellow("See You Later  ....")); 
+    
+    
     process.exit();
+
+    
 };
 
 
