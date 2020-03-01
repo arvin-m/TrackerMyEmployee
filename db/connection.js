@@ -40,22 +40,24 @@ const data ={
       
     })
   },
-    viewRoles: function() {
+    viewRoles: function(cb) {
     
     let query = "SELECT * FROM Role ";
     connection.query(query, (err, res) => {
-      console.log("\n");
       printTable(res);
-              
+      console.log("\n");
+      cb(err, res);
       
-    })
+    });
   },
-  viewDepartments: function() {
+  viewDepartments: function(cb) {
     
-    let query = "SELECT * FROM department ";
+    let query = "SELECT * FROM department";
     connection.query(query, (err, res) => {
       console.log("\n");
        printTable(res) ;
+       
+       if (cb) cb(err, res);
 
     })
   },
@@ -94,6 +96,15 @@ const data ={
 
   })
 
+  },
+  updateEmployeeId(){
+    "UPDATE employee SET role_id = ? WHERE id = ?"
+    let query= `UPDATE employee SET role_id =("${newRoleId}") WHERE id=("${employeeId}")`;
+    connection.query(query,(err,res)=>{
+    console.log("\n");      
+    console.log(c.green(" New Role ID for Employee Created Successfully Updated !"));
+
+})
 
 
 
@@ -102,6 +113,12 @@ const data ={
 
 
   }
+
+
+
+
+
+  
     
 
 
