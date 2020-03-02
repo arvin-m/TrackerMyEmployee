@@ -57,14 +57,6 @@ function start() {
             value: "view_employees"
           },
           {
-            name: "Update Departments",
-            value: "update_departments"
-          },
-          {
-            name: "Update Roles",
-            value: "update_roles"
-          },
-          {
             name: "Update Employees",
             value: "update_employees"
           },
@@ -94,12 +86,6 @@ function start() {
           break;
 
         case "view_employees": viewEmployees();
-          break;
-
-        case "update_departments": updateDepartments();
-          break;
-
-        case "update_roles": updateRoles();
           break;
 
         case "update_employees": updateEmployees();
@@ -151,6 +137,12 @@ function addRols() {
 
     inquirer
       .prompt([{
+        name: "departmentID",
+        type: "number",
+        message: "insert the department ID ?"
+
+      },
+      {
         name: "title",
         type: "string",
         message: "Witch role would you like to add ?",
@@ -175,13 +167,8 @@ function addRols() {
           return "the input cannot be empty !"
         }
 
-      },
-      {
-        name: "departmentID",
-        type: "number",
-        message: "insert the department ID ?"
-
-      }]).then(newRole => {
+      }
+      ]).then(newRole => {
         const role = newRole.title;
         const salary = newRole.salary;
         const depId = newRole.departmentID;
@@ -197,7 +184,7 @@ function addRols() {
 
 
 function addEmployees() {
-  db.viewDepartments();
+  db.viewEmployees();
   console.log(c.yellow(" Print The employee and department Table To See the Department ID and Manager ID:"));
   db.viewRoles(function (err, res) {
     // console.log(res);
@@ -214,7 +201,8 @@ function addEmployees() {
           return "the input cannot be empty !"
         }
 
-      }, {
+      },
+      {
         name: "roleID",
         type: "number",
         message: "insert the role ID ?",
@@ -252,10 +240,7 @@ function addEmployees() {
           return "the input cannot be empty !"
         }
 
-      }
-     
-     
-      ]).then(newEmployee => {
+      }]).then(newEmployee => {
 
         const firstName = newEmployee.firstName;
         const lastName = newEmployee.lastName;
@@ -273,34 +258,38 @@ function addEmployees() {
 
 function viewDepartments() {
 
-  db.viewDepartments();
+  db.viewDepartments(cb=>{
+
     start();
+  });
 };
 
 function viewRoles() {
 
-  db.viewRoles();
-  start();
+  db.viewRoles(cb=>{
+
+    start();
+
+  });
+
+  
 
 };
 function viewEmployees() {
 
-  db.viewEmployees();
-  start();
+  db.viewEmployees(cd=>{
+
+    start();
+  });
 
 };
-function updateDepartments() {
-  console.log(" update department");
-  start();
 
-};
-function updateRoles() {
-  console.log("update roles");
-  start();
-};
 function updateEmployees() {
-  console.log("update employee");
-  start();
+  // console.log("update employee");
+  db.updateEmployeeId();
+ 
+  // start();
+
 };
 
 function quit() {

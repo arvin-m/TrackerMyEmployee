@@ -28,12 +28,15 @@ const connection = mysql.createConnection({
   // });
   
 const data ={
-   viewEmployees: function() {
+   viewEmployees: function(cb) {
    
     let query = "SELECT * FROM employee GROUP BY first_name";
     connection.query(query, (err, res) => {
-      console.log("\n");
       printTable(res);
+      console.log("\n");
+      if (cb) cb(err, res);
+      // cb(err, res);
+
       
       // res.forEach(dataRow => printTable([dataRow]) );
       // console.log(condataRow);
@@ -44,9 +47,10 @@ const data ={
     
     let query = "SELECT * FROM Role ";
     connection.query(query, (err, res) => {
-      printTable(res);
       console.log("\n");
-      cb(err, res);
+      printTable(res);
+      if (cb) cb(err, res);
+      
       
     });
   },
@@ -55,8 +59,7 @@ const data ={
     let query = "SELECT * FROM department";
     connection.query(query, (err, res) => {
       console.log("\n");
-       printTable(res) ;
-       
+       printTable(res) ;       
        if (cb) cb(err, res);
 
     })
@@ -98,19 +101,14 @@ const data ={
 
   },
   updateEmployeeId(){
-    "UPDATE employee SET role_id = ? WHERE id = ?"
-    let query= `UPDATE employee SET role_id =("${newRoleId}") WHERE id=("${employeeId}")`;
-    connection.query(query,(err,res)=>{
-    console.log("\n");      
-    console.log(c.green(" New Role ID for Employee Created Successfully Updated !"));
+    
+//     let query= `UPDATE employee SET role_id =("${newRoleId}") WHERE id=("${employeeId}")`;
+//     connection.query(query,(err,res)=>{
+//     console.log("\n");      
+//     console.log(c.green(" New Role ID for Employee Created Successfully Updated !"));
 
-})
-
-
-
-
-
-
+// })
+ 
 
   }
 
