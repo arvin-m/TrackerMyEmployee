@@ -88,7 +88,7 @@ function start() {
         case "view_employees": viewEmployees();
           break;
 
-        case "update_employees": updateEmployees();
+        case "update_employees": updateEmployeesRole();
           break;
 
         default: quit();
@@ -284,21 +284,55 @@ function viewEmployees() {
 
 };
 
-function updateEmployees() {
-  // console.log("update employee");
-  db.updateEmployeeId();
- 
-  // start();
+function updateEmployeesRole() {
+  
+  db.updateEmployeeRole(function(data){
+    console.log("in promt file",data);
+    inquirer
+    .prompt([
+      {
+        name:"choseEmployee",
+        message:"Pick an employee to update?",
+        type:"list",
+        choices:data
+      }
+    ]).then((answer)=>{
+      console.log(" id of employee to update",answer.choseEmployee.split(" ")[0]);
+      db.viewRoles(function(data){
+        // console.log(" roles in index file ",data);
+        let roleArr=[];
+        data.forEach(role => {
 
+          roleArr.push(role.id+" "+role.title);          
+        });
+        console.log(roleArr);
+        inquirer
+        .prompt([
+          {
+            name:"newRole",
+            message:"Pick an employee role?",
+            type:"list",
+            choices:roleArr
+          }
+        ]).then((roleAnswer)=>{
+          console.log(" id of role to update",roleAnswer.newRole.split(" ")[0]);
+          console.log(roleAnswer);
+          let employeeId=answer.choseEmployee.split(" ")[0];
+          let roleId=roleAnswer.newRole.split(" ")[0];
+          db.sqlUpdateRole(employeeId,roleId);
+        })
+
+      });
+
+    })
+
+  });
+  
 };
 
 function quit() {
   console.log(c.yellow("See You Later  ...."));
-
-
   process.exit();
-
-
 };
 
 

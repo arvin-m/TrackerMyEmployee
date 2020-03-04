@@ -35,7 +35,7 @@ const data ={
       printTable(res);
       console.log("\n");
       if (cb) cb(err, res);
-      // cb(err, res);
+      
 
       
       // res.forEach(dataRow => printTable([dataRow]) );
@@ -48,8 +48,9 @@ const data ={
     let query = "SELECT * FROM Role ";
     connection.query(query, (err, res) => {
       console.log("\n");
-      printTable(res);
-      if (cb) cb(err, res);
+      // printTable(res);
+      // if (cb) cb(res);
+      cb(res);
       
       
     });
@@ -100,14 +101,45 @@ const data ={
   })
 
   },
-  updateEmployeeId(){
-    
-//     let query= `UPDATE employee SET role_id =("${newRoleId}") WHERE id=("${employeeId}")`;
-//     connection.query(query,(err,res)=>{
-//     console.log("\n");      
-//     console.log(c.green(" New Role ID for Employee Created Successfully Updated !"));
+  sqlUpdateRole(employeeId,roleId){
+    console.log(" id about to update",employeeId,roleId);
+    let query=`UPDATE employee SET  role_id =("${roleId}") 
+     WHERE id=("${employeeId}") `;
+     connection.query(query,(err,res)=>{
+       console.log("Update New  Employee Role Successfully ! ");
 
-// })
+
+
+     })
+
+
+
+
+
+
+
+  },
+  updateEmployeeRole(cb){
+    
+    let allEmployeeQuery=`Select id,first_name,last_name 
+    from employee `;    
+    
+      connection.query(allEmployeeQuery,(err,res)=>{
+      
+      let employeeName=[];
+      const choices =res.forEach(element => {
+        let id =element.id;
+        let name=element.first_name;
+        let lastName=element.last_name;
+        // console.log(id+"-"+name +" "+ lastName )
+        employeeName.push(id+" "+name +" "+lastName);
+        
+      });
+      cb(employeeName);
+
+   
+
+})
  
 
   }
