@@ -20,7 +20,7 @@ Creating interfaces app that make it easy for non-developers to view and interac
 
 
   ## How to run this application :
-  * Type  start to test the app as node index.js
-  * Type dev to run the app as nodemon index.js
+  * Type npm run start to test the app as node index.js
+  * Type npm run dev to run the app as nodemon index.js
 
   * You can use the arrow key to interact with application menu  also you can insert the menu option number to choose what you like to do .
