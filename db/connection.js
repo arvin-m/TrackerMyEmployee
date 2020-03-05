@@ -48,7 +48,7 @@ const data ={
     let query = "SELECT * FROM Role ";
     connection.query(query, (err, res) => {
       console.log("\n");
-      // printTable(res);
+      printTable(res);
       // if (cb) cb(res);
       cb(res);
       
@@ -65,60 +65,50 @@ const data ={
 
     })
   },
-    addDepartment(department){
+    addDepartment(department,cb){
     console.log("inside the connection---> ",department);
     let query= `INSERT INTO department(name) VALUES ("${department}")`;
     
     connection.query(query,(err,res)=>{
       console.log("\n");
-      console.log(c.green("New Department Created Successfully !"));
-      // console.log("New Department Created Successfully !");
-
-     // printTable(res);
+     cb(console.log(c.green(`New ${department} Department Created Successfully !`)));
       
     
     })
     
 
   },
-  addRole(role,salary,depId){
-    console.log("inside the connection---> ",role,salary,depId);
+  addRole(role,salary,depId,cb){
+    
     
     let query= `INSERT INTO role(title,salary,department_id) VALUES ("${role}","${salary}","${depId}")`;
       connection.query(query,(err,res)=>{
       console.log("\n");      
-      console.log(c.green("New Role Created Successfully !"));
+      cb(console.log(c.green(`New ${role} Role Created Successfully !`)));
 
   })
 
   },
-  addEmployees(firstName,lastName,roleID,managerID){
+  addEmployees(firstName,lastName,roleID,managerID,cb){
     let query= `INSERT INTO employee(first_name,last_name,role_id,manager_id) VALUES ("${firstName}","${lastName}","${roleID}","${managerID}")`;
       connection.query(query,(err,res)=>{
       console.log("\n");      
-      console.log(c.green("New Employee Created Successfully !"));
+      cb(console.log(c.green(`New Employee ${firstName} ${lastName} Created Successfully !`)));
 
   })
 
   },
+  // Update the employee role after getting data from updateEmployeeRole FUNCTION in the bottom
   sqlUpdateRole(employeeId,roleId){
-    console.log(" id about to update",employeeId,roleId);
+    
     let query=`UPDATE employee SET  role_id =("${roleId}") 
      WHERE id=("${employeeId}") `;
      connection.query(query,(err,res)=>{
-       console.log("Update New  Employee Role Successfully ! ");
-
-
+       console.log("Update Employee Role Successfully ! ");
 
      })
-
-
-
-
-
-
-
   },
+  // Geting the information for the employee to update theire role
   updateEmployeeRole(cb){
     
     let allEmployeeQuery=`Select id,first_name,last_name 
@@ -140,7 +130,6 @@ const data ={
    
 
 })
- 
 
   }
 

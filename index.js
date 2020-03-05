@@ -6,7 +6,7 @@ const CFonts = require('cfonts');
 CFonts.say('Employee |Tracker ', {
 
   font: 'block',              // define the font face
-  align: 'center',              // define text alignment
+  align: 'center',            // define text alignment
   colors: ['system'],         // define all colors
   background: 'transparent',  // define the background color, you can also use `backgroundColor` here as key
   letterSpacing: 1,           // define letter spacing
@@ -58,7 +58,7 @@ function start() {
           },
           {
             name: "Update Employees",
-            value: "update_employees"
+            value: "update_employeesRole"
           },
           {
             name: "Quit",
@@ -68,7 +68,7 @@ function start() {
         ]
       }
     ]).then(answer => {
-      // console.log("---------->>>",answer);
+      
       switch (answer.questions) {
         case "add_departments": addDepartments();
           break;
@@ -88,7 +88,7 @@ function start() {
         case "view_employees": viewEmployees();
           break;
 
-        case "update_employees": updateEmployeesRole();
+        case "update_employeesRole": updateEmployeesRole();
           break;
 
         default: quit();
@@ -118,10 +118,10 @@ function addDepartments() {
     }]).then(newDepartment => {
 
       let department = newDepartment.name;
-      db.addDepartment(department);
-    }).then(err => {
-      if (err) throw err;
-      start();
+      db.addDepartment(department,(cb)=>{
+        start();
+
+      });
     })
 
 
@@ -139,7 +139,7 @@ function addRols() {
       .prompt([{
         name: "departmentID",
         type: "number",
-        message: "insert the department ID ?"
+        message: "insert the department ID for new role ?"
 
       },
       {
@@ -173,7 +173,9 @@ function addRols() {
         const salary = newRole.salary;
         const depId = newRole.departmentID;
 
-        db.addRole(role, salary, depId);
+        db.addRole(role, salary, depId,(cb)=>{
+          start();
+        });
 
       })
 
@@ -185,21 +187,21 @@ function addRols() {
 
 function addEmployees() {
   db.viewEmployees();
-  console.log(c.yellow(" Print The employee and department Table To See the Department ID and Manager ID:"));
+  console.log(c.yellow(" Print The employee and department Table To See the Department ID and Manager ID."));
   db.viewRoles(function (err, res) {
-    // console.log(res);
+    
     inquirer
       .prompt([ {
         name: "managerID",
         type: "number",
-        message: "insert the maneger ID ?",
-        validate: function (input) {
-          if (input != '') {
-            return true;
+        message: "insert the maneger ID for new employee ?"
+        // validate: function (input) {
+        //   if (input != '') {
+        //     return true;
 
-          }
-          return "the input cannot be empty !"
-        }
+        //   }
+        //   return "the input cannot be empty !"
+        // }
 
       },
       {
@@ -207,11 +209,11 @@ function addEmployees() {
         type: "number",
         message: "insert the role ID ?",
         validate: function (input) {
-          if (input != '') {
+          if (input != Number) {
             return true;
 
           }
-          return "the input cannot be empty !"
+          return "Insert valid number !"
         }
 
       },
@@ -247,10 +249,10 @@ function addEmployees() {
         const roleID = newEmployee.roleID;
         const managerID = newEmployee.managerID;
 
-        db.addEmployees(firstName, lastName, roleID, managerID);
-      }).catch(err => {
-        throw err;
-        start();
+        db.addEmployees(firstName, lastName, roleID, managerID,(cb)=>{
+          start();
+
+        });
       })
   });
 
@@ -287,7 +289,7 @@ function viewEmployees() {
 function updateEmployeesRole() {
   
   db.updateEmployeeRole(function(data){
-    console.log("in promt file",data);
+    
     inquirer
     .prompt([
       {
@@ -297,7 +299,7 @@ function updateEmployeesRole() {
         choices:data
       }
     ]).then((answer)=>{
-      console.log(" id of employee to update",answer.choseEmployee.split(" ")[0]);
+      // console.log(" id of employee to update",answer.choseEmployee.split(" ")[0]);
       db.viewRoles(function(data){
         // console.log(" roles in index file ",data);
         let roleArr=[];
@@ -305,7 +307,7 @@ function updateEmployeesRole() {
 
           roleArr.push(role.id+" "+role.title);          
         });
-        console.log(roleArr);
+        // console.log(roleArr);
         inquirer
         .prompt([
           {
@@ -315,8 +317,8 @@ function updateEmployeesRole() {
             choices:roleArr
           }
         ]).then((roleAnswer)=>{
-          console.log(" id of role to update",roleAnswer.newRole.split(" ")[0]);
-          console.log(roleAnswer);
+          // console.log(" id of role to update",roleAnswer.newRole.split(" ")[0]);
+          // console.log(roleAnswer);
           let employeeId=answer.choseEmployee.split(" ")[0];
           let roleId=roleAnswer.newRole.split(" ")[0];
           db.sqlUpdateRole(employeeId,roleId);

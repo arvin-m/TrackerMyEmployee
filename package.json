@@ -4,8 +4,8 @@
   "description": "creating interfaces that make it easy for non-developers to view and interact with information stored in databases. Often these interfaces are known as **C**ontent **M**anagement **S**ystems.",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index"
+    "start":"node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
