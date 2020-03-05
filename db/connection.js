@@ -99,12 +99,12 @@ const data ={
 
   },
   // Update the employee role after getting data from updateEmployeeRole FUNCTION in the bottom
-  sqlUpdateRole(employeeId,roleId){
+  sqlUpdateRole(employeeId,roleId,cb){
     
     let query=`UPDATE employee SET  role_id =("${roleId}") 
      WHERE id=("${employeeId}") `;
      connection.query(query,(err,res)=>{
-       console.log("Update Employee Role Successfully ! ");
+       cb(console.log(c.green("Update Employee Role Successfully ! ")));
 
      })
   },

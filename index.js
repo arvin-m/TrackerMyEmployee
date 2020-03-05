@@ -321,7 +321,10 @@ function updateEmployeesRole() {
           // console.log(roleAnswer);
           let employeeId=answer.choseEmployee.split(" ")[0];
           let roleId=roleAnswer.newRole.split(" ")[0];
-          db.sqlUpdateRole(employeeId,roleId);
+          db.sqlUpdateRole(employeeId,roleId,(cb)=>{
+            start();
+
+          });
         })
 
       });
