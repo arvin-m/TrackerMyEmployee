@@ -14,7 +14,7 @@ INSERT INTO role(title,salary,department_id)
 		("Accounting",80000,5);
         
 INSERT INTO employee(first_name,last_name,role_id,manager_id)
-VALUES ("Fred","Smith",null),
+VALUES ("Fred","Smith",null), -- manager
 		("John","Doe",2,3),
 		("paula","Jonson",3,1),
 		("Will","Jackson",4,1),

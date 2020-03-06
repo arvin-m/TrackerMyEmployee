@@ -14,7 +14,7 @@ Creating interfaces app that make it easy for non-developers to view and interac
 
   * Update employee roles
 
-  ## Base on database this company has one manager with ID NO.15
+  ## Base on database this company has one manager .
 
   ## How this application looks like ?
 
