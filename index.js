@@ -194,14 +194,14 @@ function addEmployees() {
       .prompt([ {
         name: "managerID",
         type: "number",
-        message: "insert the maneger ID for new employee ?"
-        // validate: function (input) {
-        //   if (input != '') {
-        //     return true;
+        message: "insert the maneger ID for new employee ?",
+        validate: function (input) {
+          if (input <0 || "") {
+            return true;
 
-        //   }
-        //   return "the input cannot be empty !"
-        // }
+          }
+          return "Insert valid number !"
+        }
 
       },
       {
@@ -209,7 +209,7 @@ function addEmployees() {
         type: "number",
         message: "insert the role ID ?",
         validate: function (input) {
-          if (input != Number) {
+          if (input <0 || "") {
             return true;
 
           }
