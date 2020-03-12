@@ -4,7 +4,7 @@
   "description": "creating interfaces that make it easy for non-developers to view and interact with information stored in databases. Often these interfaces are known as **C**ontent **M**anagement **S**ystems.",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
     "dev": "nodemon index.js"
   },
   "repository": {
@@ -24,7 +24,8 @@
     "console-table-printer": "^1.1.61",
     "console.table": "^0.10.0",
     "inquirer": "^7.0.4",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.2"
   },
   "devDependencies": {}
 }
