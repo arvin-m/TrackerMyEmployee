@@ -18,7 +18,7 @@ Creating interfaces app that make it easy for non-developers to view and interac
 
   ## How this application looks like ?
 
-![Application](Assets/app.png)
+![Application](Assets/app.PNG)
 
 
   ## How to run this application :
